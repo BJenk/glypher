@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { useAnimation, createInitialAnimation } from "./animation";
+import { useAnimation, createInitialAnimation, MAX_FRAMES } from "./animation";
 
 beforeEach(() => useAnimation.getState().clear());
 
@@ -42,5 +42,11 @@ describe("animation store", () => {
     a.frames.push({ id: "x", cp: 65 });
     useAnimation.getState().loadAnimation(a);
     expect(useAnimation.getState().animation.frames[0].cp).toBe(65);
+  });
+
+  it("stops adding frames at the runtime's limit", () => {
+    expect(MAX_FRAMES).toBe(64);
+    for (let i = 0; i < MAX_FRAMES + 5; i++) useAnimation.getState().addFrame(65);
+    expect(useAnimation.getState().animation.frames).toHaveLength(MAX_FRAMES);
   });
 });

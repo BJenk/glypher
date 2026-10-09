@@ -24,7 +24,7 @@ describe("parseAnimation", () => {
     ["a negative duration", { frames: [{ id: "a", cp: 65, durationMs: -1 }] }],
     ["a color that isn't hex", { ink: "red; background:url(x)" }],
     ["a frame that isn't an object", { frames: [null] }],
-    ["too many frames", { frames: Array.from({ length: 257 }, (_, i) => ({ id: `f${i}`, cp: 65 })) }],
+    ["more frames than the runtime plays", { frames: Array.from({ length: 65 }, (_, i) => ({ id: `f${i}`, cp: 65 })) }],
     ["another version", { version: 2 }],
   ])("rejects %s", (_, patch) => {
     expect(parseAnimation({ ...good, ...patch })).toBeNull();

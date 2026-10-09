@@ -1,10 +1,9 @@
-import type { Animation, Frame } from "../../store/animation";
+import { MAX_FRAMES, type Animation, type Frame } from "../../store/animation";
 
 // Share links and saved work are untrusted input: a link can carry anything.
 // Only well-formed v1 animations get through, rebuilt from known fields.
 
 const HEX = /^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i;
-const MAX_FRAMES = 256;
 const isMs = (n: unknown): n is number => typeof n === "number" && Number.isFinite(n) && n >= 16 && n <= 10_000;
 const isHex = (s: unknown): s is string => typeof s === "string" && HEX.test(s);
 
