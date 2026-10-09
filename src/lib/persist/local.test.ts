@@ -14,4 +14,8 @@ describe("local persistence", () => {
   it("returns null when empty", () => {
     expect(loadLocal()).toBeNull();
   });
+  it("ignores saved data that isn't a valid animation", () => {
+    localStorage.setItem("glypher:v1", JSON.stringify({ ...createInitialAnimation(), speedMs: "fast" }));
+    expect(loadLocal()).toBeNull();
+  });
 });

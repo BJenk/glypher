@@ -1,4 +1,5 @@
 import type { Animation } from "../../store/animation";
+import { parseAnimation } from "../share/validate";
 
 const KEY = "glypher:v1";
 
@@ -13,9 +14,7 @@ export function saveLocal(a: Animation): void {
 export function loadLocal(): Animation | null {
   try {
     const raw = localStorage.getItem(KEY);
-    if (!raw) return null;
-    const a = JSON.parse(raw) as Animation;
-    return a?.version === 1 && Array.isArray(a.frames) ? a : null;
+    return raw ? parseAnimation(JSON.parse(raw)) : null;
   } catch {
     return null;
   }
