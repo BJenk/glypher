@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { GLYPH_FONT_STACK } from "@/lib/fonts";
+import { GLYPH_FONT_STACK } from "../../lib/fonts";
 
 const SIZE = 64; // favicon canvas, px; browsers scale it down to 16–32px
 

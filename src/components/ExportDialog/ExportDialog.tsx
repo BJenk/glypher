@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
-import type { Animation } from "@/store/animation";
-import { GLYPH_FONT_STACK } from "@/lib/fonts";
+import type { Animation } from "../../store/animation";
+import { GLYPH_FONT_STACK } from "../../lib/fonts";
 import { EXPORT_MODES, type ExportMode, type Target } from "./targets";
 import styles from "./ExportDialog.module.css";
 

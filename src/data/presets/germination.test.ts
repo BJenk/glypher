@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { GERMINATION } from "./germination";
-import { isPortable } from "@/lib/unicode/coverage";
+import { isPortable } from "../../lib/unicode/coverage";
 
 describe("germination preset", () => {
   it("is a valid v1 looping animation with frames", () => {

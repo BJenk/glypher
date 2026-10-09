@@ -1,4 +1,4 @@
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 import { GERMINATION } from "./germination";
 
 // "Loading 1" — Ogham strokes building up one to five: ᚋᚌᚍᚎᚏ

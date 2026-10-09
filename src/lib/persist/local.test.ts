@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { saveLocal, loadLocal } from "./local";
-import { createInitialAnimation } from "@/store/animation";
+import { createInitialAnimation } from "../../store/animation";
 
 beforeEach(() => localStorage.clear());
 

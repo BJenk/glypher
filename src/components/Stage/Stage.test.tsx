@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Stage } from "./Stage";
-import { useAnimation } from "@/store/animation";
+import { useAnimation } from "../../store/animation";
 
 beforeEach(() => {
   useAnimation.getState().clear();

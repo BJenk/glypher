@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ExportDialog } from "./ExportDialog";
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 
 const animation: Animation = {
   version: 1, loop: true, speedMs: 150, background: "#fff", ink: "#000",

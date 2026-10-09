@@ -1,4 +1,4 @@
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 import { jsString, preview } from "./faviconScript";
 
 // A self-contained React component that plays the loop inside the page, like a

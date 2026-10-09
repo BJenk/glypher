@@ -2,9 +2,9 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { App } from "./App";
-import { useAnimation } from "@/store/animation";
-import { encodeAnimation } from "@/lib/share/encode";
-import { saveLocal } from "@/lib/persist/local";
+import { useAnimation } from "../store/animation";
+import { encodeAnimation } from "../lib/share/encode";
+import { saveLocal } from "../lib/persist/local";
 
 beforeEach(() => {
   localStorage.clear();
@@ -27,7 +27,7 @@ describe("App", () => {
 
   it("URL hash hydration wins over localStorage", async () => {
     // Build an animation with an Ethiopic glyph and encode it into the hash
-    const { createInitialAnimation } = await import("@/store/animation");
+    const { createInitialAnimation } = await import("../store/animation");
     const hashAnim = {
       ...createInitialAnimation(),
       frames: [{ id: "f-hash", cp: 0x1275, color: undefined, durationMs: undefined }],

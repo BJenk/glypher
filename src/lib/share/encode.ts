@@ -1,5 +1,5 @@
 import LZString from "lz-string";
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 
 export function encodeAnimation(a: Animation): string {
   return LZString.compressToEncodedURIComponent(JSON.stringify(a));

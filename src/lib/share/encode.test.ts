@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { encodeAnimation, decodeAnimation } from "./encode";
-import { createInitialAnimation } from "@/store/animation";
+import { createInitialAnimation } from "../../store/animation";
 
 describe("share encode", () => {
   it("round-trips an animation", () => {

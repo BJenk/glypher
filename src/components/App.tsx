@@ -1,8 +1,8 @@
 "use client";
 import { useEffect } from "react";
-import { useAnimation } from "@/store/animation";
-import { decodeAnimation } from "@/lib/share/encode";
-import { saveLocal, loadLocal } from "@/lib/persist/local";
+import { useAnimation } from "../store/animation";
+import { decodeAnimation } from "../lib/share/encode";
+import { saveLocal, loadLocal } from "../lib/persist/local";
 import { GlyphPicker } from "./GlyphPicker/GlyphPicker";
 import { Timeline } from "./Timeline/Timeline";
 import { Stage } from "./Stage/Stage";
