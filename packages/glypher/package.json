@@ -3,26 +3,53 @@
   "version": "0.1.0",
   "description": "Looping Unicode glyph animations: a React component, a web component, and an animated favicon.",
   "license": "MIT",
-  "author": "Ben Jenkins",
+  "author": "Bjenk",
   "homepage": "https://bjenk.com/glypher",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BJenk/glypher.git",
     "directory": "packages/glypher"
   },
-  "keywords": ["unicode", "glyph", "animation", "loader", "spinner", "favicon", "react", "web-component"],
+  "keywords": [
+    "unicode",
+    "glyph",
+    "animation",
+    "loader",
+    "spinner",
+    "favicon",
+    "react",
+    "web-component"
+  ],
   "type": "module",
-  "sideEffects": ["./dist/element.js"],
+  "sideEffects": [
+    "./dist/element.js"
+  ],
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
-    "./element": { "types": "./dist/element.d.ts", "import": "./dist/element.js" }
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./element": {
+      "types": "./dist/element.d.ts",
+      "import": "./dist/element.js"
+    }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rm -rf dist && tsup",
     "prepublishOnly": "npm run build"
   },
-  "peerDependencies": { "react": ">=18" },
-  "peerDependenciesMeta": { "react": { "optional": true } },
-  "devDependencies": { "tsup": "^8.3.0" }
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0"
+  }
 }

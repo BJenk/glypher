@@ -55,4 +55,4 @@ Times are clamped to 16–10000 ms.
 
 ## License
 
-MIT © Ben Jenkins
+MIT © Bjenk
