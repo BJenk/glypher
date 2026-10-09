@@ -58,3 +58,33 @@ export function parseDurations(attr: string | null): number[] {
   if (!attr) return [];
   return attr.split(",").map((s) => (s.trim() === "" ? NaN : Number(s)));
 }
+
+// Advances through the frames on their own durations. Returns a stop function.
+export function runLoop(durations: readonly number[], onFrame: (index: number) => void, start = 0): () => void {
+  if (durations.length < 2) return () => {};
+  let i = start % durations.length;
+  let timer = setTimeout(function tick() {
+    i = (i + 1) % durations.length;
+    onFrame(i);
+    timer = setTimeout(tick, durations[i]);
+  }, durations[i]);
+  return () => clearTimeout(timer);
+}
+
+const REDUCE = "(prefers-reduced-motion: reduce)";
+
+function reduceQuery(): MediaQueryList | null {
+  return typeof window !== "undefined" && typeof window.matchMedia === "function" ? window.matchMedia(REDUCE) : null;
+}
+
+export function prefersReducedMotion(): boolean {
+  return reduceQuery()?.matches ?? false;
+}
+
+export function onReducedMotionChange(callback: (reduced: boolean) => void): () => void {
+  const mq = reduceQuery();
+  if (!mq) return () => {};
+  const handler = () => callback(mq.matches);
+  mq.addEventListener("change", handler);
+  return () => mq.removeEventListener("change", handler);
+}

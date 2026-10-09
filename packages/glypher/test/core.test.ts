@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import {
-  splitGlyphs, clampMs, normalizeLoop, parseDurations,
+  splitGlyphs, clampMs, normalizeLoop, parseDurations, runLoop, prefersReducedMotion, onReducedMotionChange,
   DEFAULT_SPEED, MIN_MS, MAX_MS, MAX_FRAMES,
 } from "../src/core";
 
@@ -71,5 +71,63 @@ describe("parseDurations", () => {
   });
   it("handles a missing attribute", () => {
     expect(parseDurations(null)).toEqual([]);
+  });
+});
+
+describe("runLoop", () => {
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
+
+  it("steps through frames on each frame's duration", () => {
+    const seen: number[] = [];
+    const stop = runLoop([100, 300], (i) => seen.push(i));
+    vi.advanceTimersByTime(100);
+    expect(seen).toEqual([1]);
+    vi.advanceTimersByTime(299);
+    expect(seen).toEqual([1]);
+    vi.advanceTimersByTime(1);
+    expect(seen).toEqual([1, 0]);
+    stop();
+    vi.advanceTimersByTime(1000);
+    expect(seen).toEqual([1, 0]);
+  });
+  it("can start from a later frame", () => {
+    const seen: number[] = [];
+    runLoop([100, 100, 100], (i) => seen.push(i), 2);
+    vi.advanceTimersByTime(100);
+    expect(seen).toEqual([0]);
+  });
+  it("does nothing for a single frame", () => {
+    const onFrame = vi.fn();
+    runLoop([100], onFrame);
+    vi.advanceTimersByTime(1000);
+    expect(onFrame).not.toHaveBeenCalled();
+  });
+});
+
+describe("reduced motion", () => {
+  afterEach(() => {
+    delete (window as { matchMedia?: unknown }).matchMedia; // jsdom has none by default
+  });
+
+  it("is off when the browser can't tell", () => {
+    expect(prefersReducedMotion()).toBe(false);
+  });
+  it("follows the media query and its changes", () => {
+    let listener: (() => void) | undefined;
+    const mq = {
+      matches: true,
+      addEventListener: (_: string, l: () => void) => { listener = l; },
+      removeEventListener: vi.fn(),
+    };
+    window.matchMedia = vi.fn(() => mq) as unknown as typeof window.matchMedia;
+    expect(prefersReducedMotion()).toBe(true);
+    const seen: boolean[] = [];
+    const stop = onReducedMotionChange((r) => seen.push(r));
+    mq.matches = false;
+    listener!();
+    expect(seen).toEqual([false]);
+    stop();
+    expect(mq.removeEventListener).toHaveBeenCalled();
   });
 });
