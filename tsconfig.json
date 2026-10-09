@@ -23,10 +23,10 @@
       }
     ],
     "paths": {
-      "@bjenk/glypher": [
+      "@be_jenky/glypher": [
         "./packages/glypher/src/index.ts"
       ],
-      "@bjenk/glypher/element": [
+      "@be_jenky/glypher/element": [
         "./packages/glypher/src/element.ts"
       ]
     }

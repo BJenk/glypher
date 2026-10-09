@@ -16,7 +16,7 @@ export type Animation = {
   ink: string;
 };
 
-// The most frames @bjenk/glypher plays; more would be cut off where the loop is used.
+// The most frames @be_jenky/glypher plays; more would be cut off where the loop is used.
 export const MAX_FRAMES = 64;
 
 export function createInitialAnimation(): Animation {

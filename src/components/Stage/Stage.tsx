@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { GlyphFavicon } from "@bjenk/glypher";
+import { GlyphFavicon } from "@be_jenky/glypher";
 import { useAnimation } from "../../store/animation";
 import { ExportDialog } from "../ExportDialog/ExportDialog";
 import { useLoopPlayer } from "./useLoopPlayer";

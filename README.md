@@ -16,7 +16,7 @@ The idea started with one animation, a germination sequence built from Ethiopic 
 - **Timeline.** Click glyphs to add frames, then drag to reorder or remove them. The stage plays the loop as you edit, with adjustable speed.
 - **Platform check.** For the current loop, the editor lists any glyph that macOS or Android can't draw.
 - **Live tab preview.** The loop can play in the browser tab's favicon while you work. It uses the same component you install, so the preview is exactly what visitors get.
-- **Use it.** Add the loop to any site with the [`@bjenk/glypher`](packages/glypher) package: `<GlyphLoop frames="✎✏✐✏" />` in React or Next.js, or the `<glyph-loop>` web component anywhere else. Either can also animate the browser tab's icon. Glypher hands you a component tag and your frames, not generated code.
+- **Use it.** Add the loop to any site with the [`@be_jenky/glypher`](packages/glypher) package: `<GlyphLoop frames="✎✏✐✏" />` in React or Next.js, or the `<glyph-loop>` web component anywhere else. Either can also animate the browser tab's icon. Glypher hands you a component tag and your frames, not generated code.
 - **Examples.** Sixteen built-in loops play in the header; click one to load it.
 - **Autosave.** Your work is saved in the browser and restored when you come back.
 
@@ -27,7 +27,7 @@ Next.js 14 (App Router), React 18, TypeScript, Zustand and CSS Modules, tested w
 ## Repository layout
 
 - `src/`: the Glypher editor (Next.js), the page at bjenk.com/glypher.
-- `packages/glypher/`: [`@bjenk/glypher`](packages/glypher), the small runtime published to npm. The editor uses it for its tab preview, and its "Use it" panel produces snippets for it.
+- `packages/glypher/`: [`@be_jenky/glypher`](packages/glypher), the small runtime published to npm. The editor uses it for its tab preview, and its "Use it" panel produces snippets for it.
 
 ## Development
 

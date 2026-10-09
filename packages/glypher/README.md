@@ -1,4 +1,4 @@
-# @bjenk/glypher
+# @be_jenky/glypher
 
 Looping animations made of Unicode characters: a loading indicator like `✎✏✐✏`, or an animated browser-tab icon. No dependencies, about 3 kB gzipped.
 
@@ -7,11 +7,11 @@ Design a loop in the [Glypher editor](https://bjenk.com/glypher), then use it wi
 ## React and Next.js
 
 ```bash
-npm install @bjenk/glypher
+npm install @be_jenky/glypher
 ```
 
 ```tsx
-import { GlyphLoop, GlyphFavicon } from "@bjenk/glypher";
+import { GlyphLoop, GlyphFavicon } from "@be_jenky/glypher";
 
 <GlyphLoop frames="✎✏✐✏" speed={150} />           // plays in the page, like a spinner
 <GlyphFavicon frames="▘▝▗▖" />                     // plays in the browser tab's icon
@@ -22,7 +22,7 @@ Both work in Next.js server and client components.
 ## Any site: HTML, Vue, Angular, site builders
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@bjenk/glypher@0/dist/element.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@be_jenky/glypher@0/dist/element.js"></script>
 
 <glyph-loop frames="✎✏✐✏" speed="150"></glyph-loop>
 <glyph-favicon frames="▘▝▗▖"></glyph-favicon>
@@ -30,7 +30,7 @@ Both work in Next.js server and client components.
 
 Load the script once, ideally in `<head>`. Put `<glyph-favicon>` in `<body>`, not `<head>`: browsers end the head at the first element they don't know, which pushes the rest of it into the body.
 
-Or, with a bundler: `import "@bjenk/glypher/element";`.
+Or, with a bundler: `import "@be_jenky/glypher/element";`.
 
 ## Options
 
