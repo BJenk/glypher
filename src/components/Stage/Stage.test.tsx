@@ -1,8 +1,9 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Stage } from "./Stage";
 import { useAnimation } from "../../store/animation";
+import { stubCanvas, iconHrefs } from "../../../packages/glypher/test/canvas";
 
 beforeEach(() => {
   useAnimation.getState().clear();
@@ -47,5 +48,28 @@ describe("Stage", () => {
     const { unmount } = render(<Stage />);
     expect(document.title).toBe("Glypher");
     unmount();
+  });
+});
+
+describe("Stage tab preview", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    document.head.innerHTML = "";
+  });
+
+  it("plays the loop in the tab icon and restores it when turned off", async () => {
+    stubCanvas();
+    document.head.innerHTML = '<link rel="icon" href="/favicon.ico">';
+    render(<Stage />);
+    expect(iconHrefs()).toEqual(["data:image/png;glyph=Ψ"]);
+    await userEvent.click(screen.getByRole("checkbox", { name: /show in browser tab/i }));
+    expect(iconHrefs()).toEqual(["/favicon.ico"]);
+  });
+  it("restores the icon while paused", async () => {
+    stubCanvas();
+    document.head.innerHTML = '<link rel="icon" href="/favicon.ico">';
+    render(<Stage />);
+    await userEvent.click(screen.getByRole("button", { name: /pause/i }));
+    expect(iconHrefs()).toEqual(["/favicon.ico"]);
   });
 });
