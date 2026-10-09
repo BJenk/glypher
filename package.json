@@ -15,13 +15,18 @@
     "!**/*.test.tsx",
     "!src/lib/__smoke__"
   ],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "npm run unicode:build && next build",
     "start": "next start",
     "unicode:build": "node scripts/build-unicode-index.mjs",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build:lib": "npm run build -w @bjenk/glypher",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p packages/glypher"
   },
   "dependencies": {
     "@fontsource/ibm-plex-mono": "^5.3.0",
