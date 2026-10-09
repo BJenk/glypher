@@ -1,0 +1,3 @@
+.letter { display: inline-grid; justify-items: center; vertical-align: bottom; }
+.letter > span { grid-area: 1 / 1; }
+.off { visibility: hidden; }

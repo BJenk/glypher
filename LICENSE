@@ -1,0 +1,41 @@
+Copyright (c) 2026 Ben Jenkins. All rights reserved.
+
+Glypher's source code is published so people can read it as an example of
+my work. Publishing it does not grant a license to use it.
+
+WHAT YOU MAY DO
+
+  - Read the source code, and view or fork this repository on GitHub as
+    GitHub's Terms of Service allow.
+  - Use the hosted Glypher app.
+  - Use anything you make with Glypher however you like, including
+    commercially, with no attribution required. This covers your
+    animations, share links, and the code that "Get code" generates for
+    you.
+
+WHAT YOU MAY NOT DO WITHOUT MY WRITTEN PERMISSION
+
+  - Copy, modify, merge, publish, distribute, sublicense, or sell this
+    software or any substantial part of it.
+  - Deploy, host, or run this software or a derivative of it as a product
+    or service.
+  - Use this source code to train machine learning models.
+
+THIRD-PARTY MATERIAL
+
+Some files in this repository are not covered by this license and remain
+under their owners' terms:
+
+  - vendor/ucd/, and the character names in src/lib/unicode/generated/
+    built from it: Unicode Character Database data, (c) Unicode, Inc.,
+    under the Unicode License v3 (https://www.unicode.org/license.txt).
+  - The fonts and npm packages Glypher depends on, each under its own
+    license, as listed in that package.
+
+NO WARRANTY
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.

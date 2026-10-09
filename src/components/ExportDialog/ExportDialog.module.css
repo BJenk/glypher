@@ -1,0 +1,172 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.dialog {
+  width: min(640px, 100%);
+  max-height: calc(100vh - 2 * var(--gutter));
+  overflow: auto;
+  padding: 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.5);
+}
+
+.head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.title { margin: 0; font-size: 15px; font-weight: 600; }
+.subhead { margin: 16px 0 6px; font-size: 13px; font-weight: 600; }
+.text { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
+.text code { font-family: var(--data); font-size: 12px; color: var(--ink); }
+
+.close {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.close:hover { color: var(--ink); background: var(--hover); }
+
+.code {
+  margin: 0;
+  max-height: 260px;
+  overflow: auto;
+  padding: 10px 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--data);
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre;
+}
+/* The script: a toolbar with the copy button over a scrolling <pre>. */
+.codeBlock {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  overflow: hidden;
+}
+.codeBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 6px 6px 12px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--data);
+  font-size: 11px;
+  color: var(--muted);
+}
+.scroll {
+  margin: 0;
+  height: 280px;
+  overflow: auto;
+  padding: 10px 12px;
+  font-family: var(--data);
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre;
+  /* Always-visible scrollbars, so it reads as scrollable even where the OS hides them. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroll::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
+.scroll::-webkit-scrollbar-corner { background: transparent; }
+
+.copy {
+  height: 26px;
+  font-family: var(--ui);
+  padding: 0 10px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  cursor: pointer;
+}
+.copy:hover { opacity: 0.85; }
+
+.notes { margin: 12px 0 0; padding-left: 18px; font-size: 12px; color: var(--muted); }
+.notes li + li { margin-top: 4px; }
+
+/* HTML / React / Next.js switch: plain text tabs, the chosen one underlined. */
+/* Scrolls sideways on narrow screens instead of wrapping. */
+.tabs { display: flex; gap: 2px; margin-bottom: 12px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  height: 30px;
+  padding: 0 10px;
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
+
+/* The first choice: where the loop plays. Two cards, each with a tiny preview. */
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.mode {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  text-align: left;
+  cursor: pointer;
+}
+.mode:hover { border-color: var(--line-strong); }
+.mode[aria-checked="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.modeLabel { font-size: 13px; font-weight: 600; }
+.modeText { font-size: 12px; color: var(--muted); }
+
+.modePreview { display: flex; align-items: center; height: 28px; margin-bottom: 4px; }
+.miniPage { font-size: 13px; }
+.miniTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px 0 6px;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  background: var(--panel);
+  font-size: 11px;
+  color: var(--muted);
+}
+.miniIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1;
+}
+
+@media (max-width: 520px) {
+  .modes { grid-template-columns: 1fr; }
+}

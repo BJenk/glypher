@@ -1,0 +1,32 @@
+/* Shared tokens. Grayscale on purpose: the glyphs are the only content, so the
+   interface stays out of their way. */
+:root {
+  --paper: #ffffff;
+  --panel: #f3f3f3;
+  --hover: #e9e9e9;
+  --line: #d4d4d4;
+  --line-strong: #8c8c8c;
+  --muted: #666666;
+  --ink: #000000;
+
+  --ui: "IBM Plex Sans", system-ui, sans-serif;
+  --data: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius: 4px;
+  --gutter: 16px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+button, input, select { font: inherit; color: inherit; }
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }

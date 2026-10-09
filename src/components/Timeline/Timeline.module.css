@@ -1,0 +1,42 @@
+/* One scrollable row so the sequence fits in the pinned working area. */
+.seq { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.empty { font-size: 13px; color: var(--muted); }
+.card {
+  position: relative;
+  flex: none;
+  width: 48px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  cursor: grab;
+  transition: opacity 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+.card:active { cursor: grabbing; }
+.card:hover { border-color: var(--line-strong); }
+.dragging { opacity: 0.4; }
+.dragover { box-shadow: -4px 0 0 0 var(--ink); }
+.g { font-size: 24px; line-height: 1; }
+.ix { position: absolute; top: 2px; left: 4px; font-family: var(--data); font-size: 9px; color: var(--muted); }
+.del {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  font-size: 9px;
+  line-height: 1;
+  color: var(--line-strong);
+  cursor: pointer;
+}
+.grip { position: absolute; bottom: 1px; left: 0; right: 0; text-align: center; font-size: 9px; line-height: 1; color: var(--line); }
+.card:hover .del { color: var(--muted); }
+.del:hover { color: var(--ink); background: var(--hover); }
+.card:hover .grip { color: var(--ink); }

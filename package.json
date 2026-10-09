@@ -1,0 +1,43 @@
+{
+  "name": "glypher",
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "npm run unicode:build && next build",
+    "start": "next start",
+    "unicode:build": "node scripts/build-unicode-index.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/noto-sans": "^5.3.0",
+    "@fontsource/noto-sans-cherokee": "^5.3.0",
+    "@fontsource/noto-sans-ethiopic": "^5.3.0",
+    "@fontsource/noto-sans-georgian": "^5.3.0",
+    "@fontsource/noto-sans-meroitic": "^5.3.0",
+    "@fontsource/noto-sans-ogham": "^5.3.0",
+    "@fontsource/noto-sans-runic": "^5.3.0",
+    "@fontsource/noto-sans-symbols": "^5.3.0",
+    "@fontsource/noto-sans-symbols-2": "^5.3.0",
+    "lz-string": "^1.5.0",
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "jsdom": "^24.1.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}

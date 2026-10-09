@@ -1,0 +1,16 @@
+.strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(8, 36px); gap: 2px; }
+.tile {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+}
+.tile:hover { background: var(--panel); border-color: var(--line); }
+.tile:active { background: var(--hover); }
+.g { font-size: 22px; line-height: 1; }
