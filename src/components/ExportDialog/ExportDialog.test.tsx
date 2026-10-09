@@ -40,6 +40,7 @@ describe("ExportDialog", () => {
     await user.click(screen.getByRole("radio", { name: /In the browser tab/ }));
     expect(screen.getByRole("tab", { name: "HTML" }).getAttribute("aria-selected")).toBe("true");
     expect(code()).toContain("<glyph-favicon");
+    expect(screen.getByRole("tabpanel").textContent).toMatch(/<glyph-favicon> anywhere in <body>/);
     expect(screen.getByText(/Safari shows the first frame/)).toBeTruthy();
   });
   it("moves between frameworks with arrow keys", async () => {

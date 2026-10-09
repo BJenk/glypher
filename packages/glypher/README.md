@@ -28,6 +28,8 @@ Both work in Next.js server and client components.
 <glyph-favicon frames="▘▝▗▖"></glyph-favicon>
 ```
 
+Load the script once, ideally in `<head>`. Put `<glyph-favicon>` in `<body>`, not `<head>`: browsers end the head at the first element they don't know, which pushes the rest of it into the body.
+
 Or, with a bundler: `import "@bjenk/glypher/element";`.
 
 ## Options

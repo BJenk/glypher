@@ -64,6 +64,12 @@ describe("HTML snippets", () => {
       '<glyph-favicon frames="AB" speed="150" durations="100,400"></glyph-favicon>',
     );
   });
+  it("place the favicon element in <body>, since an unknown element in <head> ends the head", () => {
+    expect(htmlFaviconSnippet(anim([0x41]))).toBe(
+      `<!-- In <head>: -->\n<script type="module" src="${CDN_SRC}"></script>\n\n` +
+        `<!-- Anywhere in <body>: -->\n<glyph-favicon frames="A" speed="150"></glyph-favicon>`,
+    );
+  });
   it("keep timings numeric even if the animation isn't", () => {
     const a = anim([0x41, 0x42], { speedMs: "1); alert(1" as unknown as number });
     expect(htmlLoopSnippet(a)).not.toContain("alert");

@@ -58,5 +58,8 @@ export const reactFaviconSnippet = (a: Animation) =>
 export const htmlLoopSnippet = (a: Animation) =>
   `<script type="module" src="${CDN_SRC}"></script>\n\n<glyph-loop ${htmlAttrs(a)}></glyph-loop>`;
 
+// The element goes in <body>: browsers end <head> at the first unknown
+// element, which would push the rest of the head (title, meta) into the body.
 export const htmlFaviconSnippet = (a: Animation) =>
-  `<script type="module" src="${CDN_SRC}"></script>\n\n<glyph-favicon ${htmlAttrs(a)}></glyph-favicon>`;
+  `<!-- In <head>: -->\n<script type="module" src="${CDN_SRC}"></script>\n\n` +
+  `<!-- Anywhere in <body>: -->\n<glyph-favicon ${htmlAttrs(a)}></glyph-favicon>`;

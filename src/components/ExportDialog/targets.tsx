@@ -47,7 +47,7 @@ const FAVICON_TARGETS: Target[] = [
     id: "html",
     label: "HTML",
     generate: htmlFaviconSnippet,
-    intro: <>Paste both lines into your page&apos;s <code>&lt;head&gt;</code>, or into a site builder&apos;s &ldquo;custom code&rdquo; setting.</>,
+    intro: <>Put the script tag in your page&apos;s <code>&lt;head&gt;</code> and <code>&lt;glyph-favicon&gt;</code> anywhere in <code>&lt;body&gt;</code>. In a site builder, use its body or footer code setting for the element.</>,
     tip: <>Keep your normal favicon: the loop takes over its tag while playing and puts it back when it stops.</>,
   },
 ];
