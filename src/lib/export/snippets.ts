@@ -7,7 +7,9 @@ export const PACKAGE = "@bjenk/glypher";
 export const CDN_SRC = "https://cdn.jsdelivr.net/npm/@bjenk/glypher@0/dist/element.js";
 
 const BLANK = "⠀"; // BRAILLE PATTERN BLANK: draws nothing, but isn't whitespace
-const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
+// Missing before Firefox 125; without it, frames are always space-separated.
+const segmenter =
+  typeof Intl.Segmenter === "function" ? new Intl.Segmenter(undefined, { granularity: "grapheme" }) : null;
 const JSX_SAFE = /^[^"&{}<>\\]*$/;
 
 // The frames as one string the runtime splits back into the same frames: one
@@ -18,6 +20,7 @@ export function framesText(a: Animation): string {
     const glyph = String.fromCodePoint(f.cp);
     return glyph.trim() === "" ? BLANK : glyph;
   });
+  if (!segmenter) return frames.join(" ");
   const joined = frames.join("");
   const split = Array.from(segmenter.segment(joined), (s) => s.segment);
   const roundTrips = split.length === frames.length && split.every((s, i) => s === frames[i]);
