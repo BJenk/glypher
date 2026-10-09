@@ -1,9 +1,9 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import { GlyphFavicon } from "@bjenk/glypher";
 import { useAnimation } from "../../store/animation";
 import { ExportDialog } from "../ExportDialog/ExportDialog";
 import { useLoopPlayer } from "./useLoopPlayer";
-import { useTabLoader } from "./useTabLoader";
 import { GLYPH_FONT_STACK } from "../../lib/fonts";
 import { PLATFORMS, platformsFor } from "../../lib/unicode/coverage";
 import styles from "./Stage.module.css";
@@ -16,11 +16,6 @@ export function Stage({ children }: { children?: React.ReactNode }) {
   const glyph = frame ? String.fromCodePoint(frame.cp) : "";
   const color = frame?.color ?? animation.ink;
   const [inTab, setInTab] = useState(true);
-  const tabFrames = useMemo(
-    () => animation.frames.map((f) => ({ glyph: String.fromCodePoint(f.cp), ms: f.durationMs ?? animation.speedMs })),
-    [animation.frames, animation.speedMs],
-  );
-  useTabLoader(inTab && playing && tabFrames.length ? tabFrames : null, index);
   // Per platform, the distinct glyphs in the sequence its built-in fonts can't draw.
   const distinct = [...new Set(animation.frames.map((f) => f.cp))];
   const missing = PLATFORMS.map((p) => ({
@@ -30,6 +25,16 @@ export function Stage({ children }: { children?: React.ReactNode }) {
 
   return (
     <div className={styles.bar}>
+      {/* The same component users install, so the preview is what they get:
+          drawn with the system font, as in their visitors' tabs. */}
+      {inTab && (
+        <GlyphFavicon
+          frames={animation.frames.map((f) => String.fromCodePoint(f.cp))}
+          speed={animation.speedMs}
+          durations={animation.frames.map((f) => f.durationMs ?? animation.speedMs)}
+          playing={playing}
+        />
+      )}
       <div className={styles.stage} style={{ background: animation.background }}>
         <span data-testid="stage-glyph" className={styles.glyph} style={{ color, fontFamily: GLYPH_FONT_STACK }}>
           {glyph}

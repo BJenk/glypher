@@ -16,6 +16,9 @@ export type Animation = {
   ink: string;
 };
 
+// The most frames @bjenk/glypher plays; more would be cut off where the loop is used.
+export const MAX_FRAMES = 64;
+
 export function createInitialAnimation(): Animation {
   return {
     version: 1,
@@ -46,9 +49,11 @@ type State = {
 export const useAnimation = create<State>((set) => ({
   animation: createInitialAnimation(),
   addFrame: (cp) =>
-    set((s) => ({
-      animation: { ...s.animation, frames: [...s.animation.frames, { id: nextFrameId(), cp }] },
-    })),
+    set((s) =>
+      s.animation.frames.length >= MAX_FRAMES
+        ? s
+        : { animation: { ...s.animation, frames: [...s.animation.frames, { id: nextFrameId(), cp }] } },
+    ),
   removeFrame: (id) =>
     set((s) => ({
       animation: { ...s.animation, frames: s.animation.frames.filter((f) => f.id !== id) },

@@ -15,18 +15,19 @@ The idea started with one animation, a germination sequence built from Ethiopic 
 - **Portability ranking.** Glyphs are grouped by how safe they are to use: first those built into every measured platform, then those built into only some. The ranking comes from measured font coverage, not guesses (see [Portability data](#portability-data)).
 - **Timeline.** Click glyphs to add frames, then drag to reorder or remove them. The stage plays the loop as you edit, with adjustable speed.
 - **Platform check.** For the current loop, the editor lists any glyph that macOS or Android can't draw.
-- **Live tab preview.** The loop can play in the browser tab's favicon while you work. A small Web Worker keeps it at full speed when the tab is in the background, where browsers slow normal timers to about once a second.
-- **Get code.** Export the loop as either:
-  - an in-page loading component for React or Next.js, or
-  - an animated favicon script for HTML, React, Next.js, Vue or Angular.
-
-  The generated code has no dependencies, escapes non-ASCII characters so it survives any editor or encoding, and is valid as both JavaScript and strict TypeScript.
+- **Live tab preview.** The loop can play in the browser tab's favicon while you work. It uses the same component you install, so the preview is exactly what visitors get.
+- **Use it.** Add the loop to any site with the [`@bjenk/glypher`](packages/glypher) package: `<GlyphLoop frames="✎✏✐✏" />` in React or Next.js, or the `<glyph-loop>` web component anywhere else. Either can also animate the browser tab's icon. Glypher hands you a component tag and your frames, not generated code.
 - **Examples.** Sixteen built-in loops play in the header; click one to load it.
 - **Autosave.** Your work is saved in the browser and restored when you come back.
 
 ## Tech
 
 Next.js 14 (App Router), React 18, TypeScript, Zustand and CSS Modules, tested with Vitest and Testing Library. Glyphs render with a stack of bundled Noto fonts, so most previews look the same on any machine.
+
+## Repository layout
+
+- `src/`: the Glypher editor (Next.js), the page at bjenk.com/glypher.
+- `packages/glypher/`: [`@bjenk/glypher`](packages/glypher), the small runtime published to npm. The editor uses it for its tab preview, and its "Use it" panel produces snippets for it.
 
 ## Development
 
@@ -35,6 +36,8 @@ npm install
 npm run dev       # dev server at http://localhost:3000
 npm test          # Vitest suite
 npm run build     # production build
+npm run typecheck # types, editor and runtime
+npm run build:lib # build the runtime package into packages/glypher/dist
 ```
 
 The character names and coverage data are generated from files in `vendor/` into `src/lib/unicode/generated/`, which is committed. `npm run build` regenerates them; to do it alone, run `npm run unicode:build`.
@@ -61,6 +64,6 @@ Then run `npm run unicode:build`.
 
 ## License
 
-Copyright © 2026. All rights reserved. The source is published for viewing as portfolio work; see [LICENSE](LICENSE) for what that allows. Anything you make with Glypher, including the code it generates, is yours to use freely.
+The editor is copyright © 2026, all rights reserved. Its source is published for viewing as portfolio work; see [LICENSE](LICENSE). The runtime package in `packages/glypher/` is MIT licensed, so you can use it in anything. Anything you make with Glypher is yours to use freely.
 
 Character names come from the [Unicode Character Database](https://www.unicode.org/ucd/) (Unicode License v3).

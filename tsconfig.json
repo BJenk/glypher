@@ -21,7 +21,15 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@bjenk/glypher": [
+        "./packages/glypher/src/index.ts"
+      ],
+      "@bjenk/glypher/element": [
+        "./packages/glypher/src/element.ts"
+      ]
+    }
   },
   "include": [
     "src",

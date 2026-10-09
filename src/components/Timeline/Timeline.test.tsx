@@ -35,4 +35,11 @@ describe("Timeline", () => {
     expect(screen.queryByRole("button", { name: "◀" })).toBeNull();
     expect(screen.queryByRole("button", { name: "▶" })).toBeNull();
   });
+
+  it("says when the loop is full", () => {
+    useAnimation.getState().clear();
+    for (let i = 0; i < 64; i++) useAnimation.getState().addFrame(65);
+    render(<Timeline />);
+    expect(screen.getByText(/64 frames is the most a loop can have/)).toBeTruthy();
+  });
 });

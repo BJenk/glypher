@@ -10,8 +10,7 @@ WHAT YOU MAY DO
   - Use the hosted Glypher app.
   - Use anything you make with Glypher however you like, including
     commercially, with no attribution required. This covers your
-    animations, share links, and the code that "Get code" generates for
-    you.
+    animations and the snippets the "Use it" panel gives you.
 
 WHAT YOU MAY NOT DO WITHOUT MY WRITTEN PERMISSION
 
@@ -20,6 +19,11 @@ WHAT YOU MAY NOT DO WITHOUT MY WRITTEN PERMISSION
   - Deploy, host, or run this software or a derivative of it as a product
     or service.
   - Use this source code to train machine learning models.
+
+THE RUNTIME PACKAGE
+
+packages/glypher/ (published to npm as @bjenk/glypher) is not covered by
+this license. It is MIT licensed; see packages/glypher/LICENSE.
 
 THIRD-PARTY MATERIAL
 
