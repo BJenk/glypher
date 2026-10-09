@@ -33,7 +33,7 @@ describe("framesText", () => {
 describe("React snippets", () => {
   it("import the component and pass the loop as props", () => {
     expect(reactLoopSnippet(anim([0x270e, 0x270f]))).toBe(
-      'import { GlyphLoop } from "@bjenk/glypher";\n\n<GlyphLoop frames="✎✏" speed={150} />',
+      'import { GlyphLoop } from "@be_jenky/glypher";\n\n<GlyphLoop frames="✎✏" speed={150} />',
     );
   });
   it("add durations only when frames differ", () => {
@@ -45,7 +45,7 @@ describe("React snippets", () => {
   });
   it("use GlyphFavicon for the tab", () => {
     expect(reactFaviconSnippet(anim([0x41]))).toBe(
-      'import { GlyphFavicon } from "@bjenk/glypher";\n\n<GlyphFavicon frames="A" speed={150} />',
+      'import { GlyphFavicon } from "@be_jenky/glypher";\n\n<GlyphFavicon frames="A" speed={150} />',
     );
   });
 });

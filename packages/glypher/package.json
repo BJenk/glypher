@@ -1,5 +1,5 @@
 {
-  "name": "@bjenk/glypher",
+  "name": "@be_jenky/glypher",
   "version": "0.1.0",
   "description": "Looping Unicode glyph animations: a React component, a web component, and an animated favicon.",
   "license": "MIT",

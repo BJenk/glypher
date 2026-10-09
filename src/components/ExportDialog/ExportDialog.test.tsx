@@ -25,14 +25,14 @@ describe("ExportDialog", () => {
     expect(screen.getByRole("dialog", { name: "Use it" })).toBeTruthy();
     expect(screen.getByRole("radio", { name: /In your page/ }).getAttribute("aria-checked")).toBe("true");
     expect(tabs()).toEqual(["React", "HTML"]);
-    expect(screen.getByText("npm install @bjenk/glypher")).toBeTruthy();
-    expect(code()).toBe('import { GlyphLoop } from "@bjenk/glypher";\n\n<GlyphLoop frames="☰☱" speed={150} />');
+    expect(screen.getByText("npm install @be_jenky/glypher")).toBeTruthy();
+    expect(code()).toBe('import { GlyphLoop } from "@be_jenky/glypher";\n\n<GlyphLoop frames="☰☱" speed={150} />');
   });
   it("gives the web component for HTML, with no install step", async () => {
     const user = await openDialog();
     await user.click(screen.getByRole("tab", { name: "HTML" }));
     expect(code()).toContain('<glyph-loop frames="☰☱" speed="150"></glyph-loop>');
-    expect(screen.queryByText("npm install @bjenk/glypher")).toBeNull();
+    expect(screen.queryByText("npm install @be_jenky/glypher")).toBeNull();
   });
   it("switches to the favicon, keeping the chosen framework", async () => {
     const user = await openDialog();

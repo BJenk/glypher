@@ -3,8 +3,8 @@ import type { Animation } from "../../store/animation";
 // "Use it" hands out data, not code: a component tag and the loop's frames.
 // Everything here is escaped for where it lands, and timings are numbers.
 
-export const PACKAGE = "@bjenk/glypher";
-export const CDN_SRC = "https://cdn.jsdelivr.net/npm/@bjenk/glypher@0/dist/element.js";
+export const PACKAGE = "@be_jenky/glypher";
+export const CDN_SRC = "https://cdn.jsdelivr.net/npm/@be_jenky/glypher@0/dist/element.js";
 
 const BLANK = "⠀"; // BRAILLE PATTERN BLANK: draws nothing, but isn't whitespace
 // Missing before Firefox 125; without it, frames are always space-separated.

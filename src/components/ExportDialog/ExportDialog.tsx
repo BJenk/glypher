@@ -6,7 +6,7 @@ import { EXPORT_MODES, type ExportMode, type Target } from "./targets";
 import styles from "./ExportDialog.module.css";
 
 // "Use it": a popup that asks where the loop should play (in the page or in
-// the browser tab), then shows how to add it with the @bjenk/glypher package.
+// the browser tab), then shows how to add it with the @be_jenky/glypher package.
 export function ExportDialog({ animation, className }: { animation: Animation; className?: string }) {
   const id = useId();
   const [open, setOpen] = useState(false);
