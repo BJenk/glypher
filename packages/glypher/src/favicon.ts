@@ -16,7 +16,9 @@ function drawIcon(ctx: CanvasRenderingContext2D, glyph: string, font: string) {
   const pad = SIZE * 0.04;
   ctx.clearRect(0, 0, SIZE, SIZE);
   ctx.beginPath();
-  ctx.roundRect(pad, pad, SIZE - pad * 2, SIZE - pad * 2, SIZE * 0.2);
+  // roundRect is newer than canvas (Safari 16, Firefox 112); a square tile beats no icon.
+  if (typeof ctx.roundRect === "function") ctx.roundRect(pad, pad, SIZE - pad * 2, SIZE - pad * 2, SIZE * 0.2);
+  else ctx.rect(pad, pad, SIZE - pad * 2, SIZE - pad * 2);
   ctx.fillStyle = "#ffffff";
   ctx.fill();
   ctx.lineWidth = SIZE * 0.05;
@@ -30,26 +32,47 @@ function drawIcon(ctx: CanvasRenderingContext2D, glyph: string, font: string) {
   ctx.fillText(glyph, SIZE / 2, SIZE / 2 + SIZE * 0.04);
 }
 
+// Each glyph as a PNG data URL, or null where the browser can't draw them.
+function renderIcons(frames: string[], font: string): string[] | null {
+  try {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = SIZE;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    return frames.map((glyph) => {
+      drawIcon(ctx, glyph, font);
+      return canvas.toDataURL("image/png");
+    });
+  } catch {
+    return null;
+  }
+}
+
 function restoreAttr(link: HTMLLinkElement, name: string, value: string | null) {
   if (value === null) link.removeAttribute(name);
   else link.setAttribute(name, value);
 }
 
-// Plays the loop as the page's favicon. Returns a stop function that puts the
-// page's own icon back.
-export function startFavicon(loop: Loop, { font = "system-ui, sans-serif" }: FaviconOptions = {}): () => void {
-  if (typeof document === "undefined" || loop.frames.length === 0) return () => {};
-  const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = SIZE;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return () => {};
-  const icons = loop.frames.map((glyph) => {
-    drawIcon(ctx, glyph, font);
-    return canvas.toDataURL("image/png");
-  });
+interface Player {
+  icons: string[];
+  index: number;
+}
 
-  // Point the page's icon tags at the loop. They're updated, not replaced,
-  // because frameworks like React and Next.js own those tags.
+// Several loops can run at once (two components, React StrictMode's double
+// effects). They share one hold on the page's icon tags: the page's own
+// values are saved when the first starts and restored when the last stops,
+// and the newest loop is the one shown.
+const players: Player[] = [];
+let page: {
+  links: HTMLLinkElement[];
+  saved: { link: HTMLLinkElement; href: string | null; type: string | null; sizes: string | null }[];
+  added: HTMLLinkElement | null;
+} | null = null;
+
+// Point the page's icon tags at the loop. They're updated, not replaced,
+// because frameworks like React and Next.js own those tags.
+function takeIcons() {
+  if (page) return;
   let links = Array.from(document.querySelectorAll<HTMLLinkElement>("link[rel~='icon']"));
   const saved = links.map((link) => ({
     link,
@@ -68,22 +91,50 @@ export function startFavicon(loop: Loop, { font = "system-ui, sans-serif" }: Fav
     l.type = "image/png";
     l.removeAttribute("sizes");
   });
+  page = { links, saved, added };
+}
 
-  let i = 0;
+function releaseIcons() {
+  if (!page) return;
+  page.added?.remove();
+  for (const s of page.saved) {
+    restoreAttr(s.link, "href", s.href);
+    restoreAttr(s.link, "type", s.type);
+    restoreAttr(s.link, "sizes", s.sizes);
+  }
+  page = null;
+}
+
+function paint() {
+  const top = players[players.length - 1];
+  if (top && page) page.links.forEach((l) => { l.href = top.icons[top.index]; });
+}
+
+// Plays the loop as the page's favicon. Returns a stop function that puts the
+// page's own icon back once no other loop is playing.
+export function startFavicon(loop: Loop, { font = "system-ui, sans-serif" }: FaviconOptions = {}): () => void {
+  if (typeof document === "undefined" || loop.frames.length === 0) return () => {};
+  const icons = renderIcons(loop.frames, font);
+  if (!icons) return () => {};
+
+  const player: Player = { icons, index: 0 };
+  players.push(player);
+  takeIcons();
+  paint();
+
   let stopped = false;
   let timer: ReturnType<typeof setTimeout> | undefined;
   let worker: Worker | undefined;
   let url: string | undefined;
-  const show = () => links.forEach((l) => { l.href = icons[i]; });
   const schedule = () => {
     if (stopped || icons.length < 2) return;
-    if (worker) worker.postMessage(loop.durations[i]);
-    else timer = setTimeout(next, loop.durations[i]);
+    if (worker) worker.postMessage(loop.durations[player.index]);
+    else timer = setTimeout(next, loop.durations[player.index]);
   };
   const next = () => {
     if (stopped) return;
-    i = (i + 1) % icons.length;
-    show();
+    player.index = (player.index + 1) % icons.length;
+    if (players[players.length - 1] === player) paint();
     schedule();
   };
   if (icons.length > 1 && typeof Worker !== "undefined") {
@@ -102,19 +153,16 @@ export function startFavicon(loop: Loop, { font = "system-ui, sans-serif" }: Fav
       worker = undefined;
     }
   }
-  show();
   schedule();
 
   return () => {
+    if (stopped) return;
     stopped = true;
     clearTimeout(timer);
     worker?.terminate();
     if (url) URL.revokeObjectURL(url);
-    added?.remove();
-    for (const s of saved) {
-      restoreAttr(s.link, "href", s.href);
-      restoreAttr(s.link, "type", s.type);
-      restoreAttr(s.link, "sizes", s.sizes);
-    }
+    players.splice(players.indexOf(player), 1);
+    if (players.length === 0) releaseIcons();
+    else paint();
   };
 }
