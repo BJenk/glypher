@@ -25,19 +25,24 @@ function define() {
     #root = this.attachShadow({ mode: "open" });
     #spans: HTMLSpanElement[] = [];
     #index = 0;
+    #connected = false;
     #stop = () => {};
     #unwatch = () => {};
 
     connectedCallback() {
+      this.#connected = true;
       this.#unwatch = onReducedMotionChange(() => this.#update());
       this.#update();
     }
     disconnectedCallback() {
+      this.#connected = false;
       this.#stop();
       this.#unwatch();
     }
+    // Not isConnected: when an element already in the page is upgraded, each
+    // attribute fires this before connectedCallback, and would start it again.
     attributeChangedCallback() {
-      if (this.isConnected) this.#update();
+      if (this.#connected) this.#update();
     }
 
     #update() {
@@ -70,20 +75,25 @@ function define() {
 
   class GlyphFaviconElement extends HTMLElement {
     static observedAttributes = ["frames", "speed", "durations", "playing", "font"];
+    #connected = false;
     #stop = () => {};
     #unwatch = () => {};
 
     connectedCallback() {
+      this.#connected = true;
       this.hidden = true;
       this.#unwatch = onReducedMotionChange(() => this.#update());
       this.#update();
     }
     disconnectedCallback() {
+      this.#connected = false;
       this.#stop();
       this.#unwatch();
     }
+    // Not isConnected: when an element already in the page is upgraded, each
+    // attribute fires this before connectedCallback, and would start it again.
     attributeChangedCallback() {
-      if (this.isConnected) this.#update();
+      if (this.#connected) this.#update();
     }
 
     #update() {
