@@ -1,4 +1,4 @@
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 
 const CYCLE: number[] = [
   0x00b7, // · seed

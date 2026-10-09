@@ -2,8 +2,8 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ExampleStrip } from "./ExampleStrip";
-import { EXAMPLES } from "@/data/presets";
-import { useAnimation } from "@/store/animation";
+import { EXAMPLES } from "../../data/presets";
+import { useAnimation } from "../../store/animation";
 
 beforeEach(() => useAnimation.getState().clear());
 

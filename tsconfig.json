@@ -14,12 +14,6 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    },
-    "baseUrl": ".",
     "allowJs": true,
     "incremental": true,
     "isolatedModules": true,

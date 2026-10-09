@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { search, allCodepoints, nameOf } from "@/lib/unicode/index";
-import { groupByPortability, isPortable, portabilityNote } from "@/lib/unicode/coverage";
-import { useAnimation } from "@/store/animation";
-import { GLYPH_FONT_STACK } from "@/lib/fonts";
+import { search, allCodepoints, nameOf } from "../../lib/unicode/index";
+import { groupByPortability, isPortable, portabilityNote } from "../../lib/unicode/coverage";
+import { useAnimation } from "../../store/animation";
+import { GLYPH_FONT_STACK } from "../../lib/fonts";
 import styles from "./GlyphPicker.module.css";
 
 const CELL = 42; // px — cell footprint (also the height of a row of cells)

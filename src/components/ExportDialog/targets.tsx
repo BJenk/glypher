@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
-import type { Animation } from "@/store/animation";
-import { loaderComponent } from "@/lib/export/loaderComponent";
+import type { Animation } from "../../store/animation";
+import { loaderComponent } from "../../lib/export/loaderComponent";
 import {
   faviconNext,
   faviconReact,
   faviconScript,
   faviconVue,
-} from "@/lib/export/faviconScript";
+} from "../../lib/export/faviconScript";
 
 // One way to use the loop: the code, what to do with it, and where it goes.
 export type Target = {

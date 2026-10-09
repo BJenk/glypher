@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { TITLE, TITLE_SPEED_MS, type TitleLetter } from "@/data/title";
-import { GLYPH_FONT_STACK } from "@/lib/fonts";
+import { TITLE, TITLE_SPEED_MS, type TitleLetter } from "../../data/title";
+import { GLYPH_FONT_STACK } from "../../lib/fonts";
 import styles from "./GlyphTitle.module.css";
 
 // The wordmark: each letter cycles through its lookalike glyphs. Screen readers

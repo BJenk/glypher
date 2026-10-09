@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { useAnimation } from "@/store/animation";
-import { GLYPH_FONT_STACK } from "@/lib/fonts";
+import { useAnimation } from "../../store/animation";
+import { GLYPH_FONT_STACK } from "../../lib/fonts";
 import styles from "./Timeline.module.css";
 
 export function Timeline() {

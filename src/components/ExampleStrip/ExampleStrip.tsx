@@ -1,8 +1,8 @@
 "use client";
-import { EXAMPLES, type Example } from "@/data/presets";
-import { useAnimation } from "@/store/animation";
-import { useLoopPlayer } from "@/components/Stage/useLoopPlayer";
-import { GLYPH_FONT_STACK } from "@/lib/fonts";
+import { EXAMPLES, type Example } from "../../data/presets";
+import { useAnimation } from "../../store/animation";
+import { useLoopPlayer } from "../Stage/useLoopPlayer";
+import { GLYPH_FONT_STACK } from "../../lib/fonts";
 import styles from "./ExampleStrip.module.css";
 
 // Every example playing at once, as a row of tiny loops. Click one to load it.

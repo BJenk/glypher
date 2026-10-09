@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import ts from "typescript";
 import { faviconScript, faviconReact, faviconNext, faviconVue } from "./faviconScript";
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 
 const anim = (frames: Animation["frames"], speedMs = 150): Animation => ({
   version: 1, loop: true, speedMs, background: "#fff", ink: "#000", frames,

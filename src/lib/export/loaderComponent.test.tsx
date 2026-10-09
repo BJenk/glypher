@@ -3,7 +3,7 @@ import * as React from "react";
 import { act, render, screen } from "@testing-library/react";
 import ts from "typescript";
 import { loaderComponent } from "./loaderComponent";
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 
 const animation: Animation = {
   version: 1, loop: true, speedMs: 100, background: "#fff", ink: "#000",

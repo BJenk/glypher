@@ -1,4 +1,4 @@
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 
 // Escapes everything outside printable ASCII, so the script survives pages that
 // aren't served as UTF-8 and editors that mangle pasted symbols.

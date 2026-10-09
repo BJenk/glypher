@@ -1,4 +1,4 @@
-import type { Animation } from "@/store/animation";
+import type { Animation } from "../../store/animation";
 
 const KEY = "glypher:v1";
 

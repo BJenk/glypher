@@ -1,11 +1,11 @@
 "use client";
 import { useMemo, useState } from "react";
-import { useAnimation } from "@/store/animation";
+import { useAnimation } from "../../store/animation";
 import { ExportDialog } from "../ExportDialog/ExportDialog";
 import { useLoopPlayer } from "./useLoopPlayer";
 import { useTabLoader } from "./useTabLoader";
-import { GLYPH_FONT_STACK } from "@/lib/fonts";
-import { PLATFORMS, platformsFor } from "@/lib/unicode/coverage";
+import { GLYPH_FONT_STACK } from "../../lib/fonts";
+import { PLATFORMS, platformsFor } from "../../lib/unicode/coverage";
 import styles from "./Stage.module.css";
 
 export function Stage({ children }: { children?: React.ReactNode }) {

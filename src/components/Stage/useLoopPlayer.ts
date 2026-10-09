@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Frame } from "@/store/animation";
+import type { Frame } from "../../store/animation";
 
 export function useLoopPlayer(frames: Frame[], speedMs: number, playing: boolean) {
   const [index, setIndex] = useState(0);
