@@ -5,20 +5,20 @@ import { GLYPH_FONT_STACK } from "../../lib/fonts";
 import { EXPORT_MODES, type ExportMode, type Target } from "./targets";
 import styles from "./ExportDialog.module.css";
 
-// "Get code": a popup that asks where the loop should play (in the page or in
-// the browser tab), then gives copyable code for the chosen framework.
+// "Use it": a popup that asks where the loop should play (in the page or in
+// the browser tab), then shows how to add it with the @bjenk/glypher package.
 export function ExportDialog({ animation, className }: { animation: Animation; className?: string }) {
   const id = useId();
   const [open, setOpen] = useState(false);
   const [modeId, setModeId] = useState(EXPORT_MODES[0].id);
-  const [targetId, setTargetId] = useState(EXPORT_MODES[0].targets[0].id);
+  const [targetId, setTargetId] = useState<Target["id"]>(EXPORT_MODES[0].targets[0].id);
   const [copied, setCopied] = useState(false);
   const copyRef = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
   const mode = EXPORT_MODES.find((m) => m.id === modeId) ?? EXPORT_MODES[0];
   // Keep the framework when switching modes, if the new mode has it.
   const target = mode.targets.find((t) => t.id === targetId) ?? mode.targets[0];
-  const code = open ? target.generate(animation) : "";
+  const snippet = open ? target.generate(animation) : "";
   const tabId = (t: Target) => `${id}-tab-${t.id}`;
   const firstGlyph = animation.frames[0] ? String.fromCodePoint(animation.frames[0].cp) : "";
 
@@ -41,7 +41,7 @@ export function ExportDialog({ animation, className }: { animation: Animation; c
     setCopied(false);
   }
 
-  function chooseTarget(next: string) {
+  function chooseTarget(next: Target["id"]) {
     setTargetId(next);
     setCopied(false);
   }
@@ -57,7 +57,7 @@ export function ExportDialog({ animation, className }: { animation: Animation; c
 
   async function copy() {
     if (typeof navigator.clipboard === "undefined") return;
-    await navigator.clipboard.writeText(code);
+    await navigator.clipboard.writeText(snippet);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1600);
   }
@@ -65,13 +65,13 @@ export function ExportDialog({ animation, className }: { animation: Animation; c
   return (
     <>
       <button ref={opener} className={className} onClick={() => setOpen(true)} disabled={animation.frames.length === 0}>
-        Get code
+        Use it
       </button>
       {open && (
         <div className={styles.backdrop} onMouseDown={(e) => e.target === e.currentTarget && close()}>
           <div className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby={`${id}-title`}>
             <header className={styles.head}>
-              <h2 id={`${id}-title`} className={styles.title}>Get code</h2>
+              <h2 id={`${id}-title`} className={styles.title}>Use it</h2>
               <button className={styles.close} onClick={close} aria-label="Close">✕</button>
             </header>
 
@@ -125,21 +125,27 @@ export function ExportDialog({ animation, className }: { animation: Animation; c
                 {mode.summary} {target.intro}
               </p>
 
+              {target.install && (
+                <>
+                  <h3 className={styles.subhead}>Install</h3>
+                  <pre className={styles.code}>{target.install}</pre>
+                </>
+              )}
+
+              <h3 className={styles.subhead}>Add it</h3>
               <div className={styles.codeBlock}>
                 <div className={styles.codeBar}>
-                  <span>{target.file}</span>
+                  <span>{target.label}</span>
                   <button ref={copyRef} className={styles.copy} onClick={copy}>
-                    {copied ? "Copied" : "Copy code"}
+                    {copied ? "Copied" : "Copy"}
                   </button>
                 </div>
                 {/* Focusable so keyboard users can scroll it. */}
-                <pre className={styles.scroll} data-testid="export-code" tabIndex={0} aria-label={`${target.label} code`}>
-                  {code}
+                <pre className={styles.scroll} data-testid="export-code" tabIndex={0} aria-label={`${target.label} snippet`}>
+                  {snippet}
                 </pre>
               </div>
 
-              <h3 className={styles.subhead}>{target.placementTitle ?? "Where it goes"}</h3>
-              <pre className={styles.code}>{target.placement}</pre>
               <ul className={styles.notes}>
                 {target.tip && <li>{target.tip}</li>}
                 {mode.notes.map((n, i) => (
